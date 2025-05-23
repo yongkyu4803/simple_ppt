@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 44, 62, 80;
+  --background-rgb: 249, 249, 249;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+@layer base {
+  h1 {
+    @apply text-4xl font-bold;
+  }
+  h2 {
+    @apply text-3xl font-semibold;
+  }
+  h3 {
+    @apply text-2xl font-medium;
+  }
+}
+
+@layer components {
+  .slide-container {
+    @apply w-full h-screen flex items-center justify-center bg-black;
+  }
+  
+  .slide {
+    @apply bg-white relative overflow-hidden;
+    width: 1280px;
+    height: 720px;
+  }
+  
+  .slide-content {
+    @apply absolute top-0 left-0 w-full h-full p-12;
+  }
+  
+  .slide-title {
+    @apply text-4xl font-bold mb-8 text-center;
+  }
+  
+  .slide-subtitle {
+    @apply text-2xl font-medium mb-12 text-center text-gray-600;
+  }
+  
+  .btn {
+    @apply px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors;
+  }
+}
+
+/* 슬라이드 애니메이션 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease forwards;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}

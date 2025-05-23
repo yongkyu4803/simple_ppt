@@ -1,0 +1,501 @@
+/* 
+ * Modern 프레젠테이션 스타일 모듈
+ */
+
+.container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.slide {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+/* 각 슬라이드별 컨테이너 */
+.slideContainer {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 타이틀 슬라이드 */
+.titleSlide {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #dbeafe 100%);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 최소 높이 보장 */
+  position: relative;
+  padding: 0; /* 패딩 제거, 헤더/푸터에서 개별 적용 */
+  box-sizing: border-box;
+}
+
+/* 콘텐츠 영역 */
+.contentArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  z-index: 1;
+  justify-content: center;
+  text-align: center;
+  min-height: calc(100vh - 200px);
+  padding-top: 80px;
+  padding-bottom: 100px;
+  box-sizing: border-box;
+}
+
+/* 타이틀 섹션 */
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 버튼 섹션 */
+.buttonSection {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 특징 카드 */
+.featureCard {
+  width: 100%;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  border: 1px solid rgba(241, 245, 249, 0.9);
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* 특징 카드 제목 */
+.featureCardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 1rem 0;
+  padding: 0;
+  text-align: center;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+/* 특징 목록 그리드 */
+.featureList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  row-gap: 1.25rem;
+  column-gap: 2.5rem;
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 개별 특징 항목 */
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 1.5rem;
+}
+
+/* 체크 아이콘 */
+.checkIcon {
+  color: #3b82f6;
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+  box-sizing: border-box;
+  width: 1rem;
+  height: 1rem;
+}
+
+/* 특징 텍스트 */
+.featureText {
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  flex: 1;
+  word-break: keep-all;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+  line-height: 1.2;
+  box-sizing: border-box;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #475569;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  max-width: 40rem;
+  box-sizing: border-box;
+}
+
+.accentBar {
+  width: 6rem;
+  height: 0.5rem;
+  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+  border-radius: 0.25rem;
+  margin: 0 auto 3rem auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 아이콘 그리드 */
+.iconGrid {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin: 2rem 0 0 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.iconItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.iconCircle {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: #f0f9ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 1rem 0;
+  padding: 0;
+  color: #3b82f6;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #475569;
+  margin-bottom: 2rem;
+  max-width: 40rem;
+}
+
+.accentBar {
+  width: 6rem;
+  height: 0.5rem;
+  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+  border-radius: 0.25rem;
+  margin: 0 auto 3rem auto;
+}
+
+/* 아이콘 그리드 */
+.iconGrid {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.iconItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconCircle {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: #f0f9ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: #3b82f6;
+  font-size: 1.5rem;
+}
+
+/* 피처 슬라이드 */
+.featureSlide {
+  background: #ffffff;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.featureTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+.cardIcon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  background-color: #f0f9ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: #3b82f6;
+  font-size: 1.25rem;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+/* 불릿 리스트 */
+.bulletList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bulletItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #475569;
+  font-size: 1rem;
+}
+
+.bullet {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #3b82f6;
+  border-radius: 50%;
+}
+
+/* 헤더 / 푸터 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.logoIcon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background-color: #f0f9ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b82f6;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.7); /* 반투명 배경 추가 */
+  backdrop-filter: blur(10px); /* 블러 효과 추가 */
+  border-top: 1px solid rgba(241, 245, 249, 0.8); /* 상단 경계선 추가 */
+  z-index: 10; /* 다른 요소 위에 표시 */
+  box-sizing: border-box;
+}
+
+.pageNumber {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.currentPage {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #3b82f6;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+.totalPages {
+  color: #94a3b8;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+/* 버튼 스타일 */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  gap: 0.5rem;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.primaryButton {
+  background-color: #3b82f6;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2), 0 2px 4px -1px rgba(59, 130, 246, 0.1);
+}
+
+.primaryButton:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+}
+
+.secondaryButton {
+  background-color: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.secondaryButton:hover {
+  background-color: #f1f5f9;
+  transform: translateY(-2px);
+}
+
+/* 감사합니다 슬라이드 */
+.thankYouSlide {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #dbeafe 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.thankYouCard {
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 2.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
+  border: 1px solid #f1f5f9;
+  max-width: 40rem;
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.infoBox {
+  background-color: #f0f9ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}

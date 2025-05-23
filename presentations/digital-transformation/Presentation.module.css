@@ -1,0 +1,262 @@
+/* 
+ * Digital Transformation 프레젠테이션 스타일
+ * 이 파일은 digital-transformation 프레젠테이션에만 적용되는 스타일을 포함합니다.
+ */
+
+.container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #ffffff;
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+}
+
+/* 슬라이드 기본 레이아웃 */
+.slide {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(30, 58, 138, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+/* 헤더 스타일 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: rgba(30, 58, 138, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+}
+
+.logoIcon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(59, 130, 246, 0.2);
+  border-radius: 0.5rem;
+  color: #93c5fd;
+}
+
+.slideInfo {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 푸터 스타일 */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(30, 58, 138, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+}
+
+.pageNumber {
+  display: flex;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.companyInfo {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 타이틀 슬라이드 스타일 */
+.titleSlide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  background: radial-gradient(circle at center, rgba(30, 58, 138, 0.3) 0%, rgba(30, 58, 138, 0.1) 100%);
+}
+
+.tagline {
+  font-size: 3rem;
+  color: #93c5fd;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.titleText h1 {
+  font-size: 7rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 3rem;
+  background: linear-gradient(to right, #93c5fd, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 50rem;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* 콘텐츠 슬라이드 스타일 */
+.contentSlide {
+  flex: 1;
+  padding: 2rem 4rem;
+  overflow-y: auto;
+  background: rgba(30, 58, 138, 0.1);
+}
+
+.contentSlide h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(147, 197, 253, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+/* 카드 그리드 레이아웃 */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* 아이콘 그리드 레이아웃 */
+.iconGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 64rem;
+}
+
+/* 카드 스타일 */
+.card {
+  background: rgba(30, 58, 138, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(147, 197, 253, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  background: rgba(30, 58, 138, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cardIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(147, 197, 253, 0.2);
+  border-radius: 0.75rem;
+  color: #93c5fd;
+  transition: all 0.3s ease;
+}
+
+.card:hover .cardIcon {
+  background: rgba(147, 197, 253, 0.3);
+  color: #bfdbfe;
+}
+
+.cardHeader h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.card p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+/* 단계 스타일 */
+.stages {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.stage {
+  background: rgba(30, 58, 138, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(147, 197, 253, 0.1);
+  transition: all 0.3s ease;
+}
+
+.stage:hover {
+  background: rgba(30, 58, 138, 0.3);
+  transform: translateY(-2px);
+}
+
+.stageNumber {
+  width: 3rem;
+  height: 3rem;
+  background: rgba(147, 197, 253, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #93c5fd;
+}
+
+.stageName {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.stageDesc {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}

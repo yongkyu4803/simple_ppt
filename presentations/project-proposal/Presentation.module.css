@@ -1,0 +1,299 @@
+/* 
+ * 프로젝트 제안 프레젠테이션 스타일 - 오렌지 컬러 스키마
+ */
+
+/* 기본 컨테이너 */
+.container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* 슬라이드 기본 스타일 */
+.slide {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-radius: 1.5rem;
+}
+
+/* 타이틀 슬라이드 스타일 */
+.titleSlide {
+  position: relative;
+  width: 95%;
+  height: 95vh;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ff7e33 0%, #e65c00 100%);
+  color: white;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.titleContent {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 5rem 3rem;
+  text-align: center;
+}
+
+.titleHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem 3rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.titleText {
+  font-size: 7rem;
+  font-weight: 800;
+  margin-bottom: 5rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 4rem;
+  font-weight: 500;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+  max-width: 80%;
+}
+
+.presenter {
+  font-size: 2.5rem;
+  opacity: 0.8;
+  margin-top: 3rem;
+}
+
+/* 콘텐츠 슬라이드 스타일 */
+.contentSlide {
+  background-color: white;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  width: 95%;
+  height: 95vh;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+.contentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  background-color: #fff9f5;
+  border-bottom: 1px solid #ffe8d9;
+}
+
+.companyName {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #ff6b00;
+}
+
+.slideNumber {
+  color: #9ca3af;
+  font-size: 1.125rem;
+}
+
+.contentBody {
+  padding: 4rem;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.slideTitle {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 3rem;
+  position: relative;
+  display: inline-block;
+  letter-spacing: -0.02em;
+}
+
+/* 콘텐츠 텍스트 스타일 */
+.contentText {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+}
+
+/* 두 컬럼 레이아웃 */
+.columnGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2.5rem;
+  flex: 1;
+}
+
+.column {
+  background-color: #fff5eb;
+  border-radius: 1rem;
+  padding: 2.5rem;
+  box-shadow: 0 10px 25px rgba(230, 92, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.columnTitle {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #e65c00;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.columnList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.columnItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+  color: #7c2d12;
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.columnItem::before {
+  content: '•';
+  margin-right: 1rem;
+  color: #ff7e33;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* 불릿 리스트 스타일 */
+.bulletList {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  flex: 1;
+}
+
+.bulletItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.bulletPoint {
+  color: #ff6b00;
+  margin-right: 1.25rem;
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+/* 애니메이션 관련 클래스 */
+.fadeIn {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.slideUp {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 반응형 스타일 */
+@media (max-width: 1200px) {
+  .titleText {
+    font-size: 3.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1.75rem;
+  }
+  
+  .slideTitle {
+    font-size: 2.25rem;
+  }
+  
+  .contentBody {
+    padding: 3rem;
+  }
+  
+  .bulletItem, .contentText {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .titleText {
+    font-size: 2.75rem;
+  }
+  
+  .subtitle {
+    font-size: 1.5rem;
+    max-width: 100%;
+  }
+  
+  .columnGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .contentBody {
+    padding: 2rem;
+  }
+  
+  .slideTitle {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .bulletItem, .contentText, .columnItem {
+    font-size: 1.125rem;
+  }
+}
