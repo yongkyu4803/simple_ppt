@@ -145,7 +145,7 @@ export default function Home() {
                 JSON 형식으로 콘텐츠를 정의하고 템플릿 렌더러를 통해 즉시 프레젠테이션을 생성해보세요.
                 데이터 기반 접근 방식으로 콘텐츠와 디자인을 분리하여 효율적으로 관리할 수 있습니다.
               </p>
-              <Link href="/presentation/template-generator/0" className="inline-block px-6 py-3 bg-indigo-600 text-white font-medium rounded-md shadow-md hover:bg-indigo-700 transition-colors">
+              <Link href="/generator" className="inline-block px-6 py-3 bg-indigo-600 text-white font-medium rounded-md shadow-md hover:bg-indigo-700 transition-colors">
                 템플릿 생성기 사용하기
               </Link>
             </div>

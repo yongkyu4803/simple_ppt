@@ -146,7 +146,7 @@ export default function TitleSlide() {
           </div>
         </div>
         <div className="text-center">
-          <Link href="/presentation/template-generator/0" className="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-md shadow-md hover:bg-blue-700 transition-colors">
+          <Link href="/generator" className="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-md shadow-md hover:bg-blue-700 transition-colors">
             템플릿 생성기로 시작하기
           </Link>
         </div>

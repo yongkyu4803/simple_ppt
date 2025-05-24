@@ -73,7 +73,7 @@ const TemplatesPage = () => {
             AI를 활용하여 맞춤형 프레젠테이션을 생성하거나 JSON 형식으로 직접 만들어보세요.
           </p>
           <Link
-            href="/presentation/template-generator/0"
+            href="/generator"
             className="inline-block px-6 py-3 bg-green-600 text-white font-medium rounded-md shadow-md hover:bg-green-700 transition-colors"
           >
             프레젠테이션 생성하기

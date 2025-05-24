@@ -22,10 +22,10 @@ export default function Navigation() {
       active: pathname === '/'
     },
     {
-      href: '/presentation/template-generator/0',
+      href: '/generator',
       label: '프레젠테이션 생성',
       icon: FaPlus,
-      active: pathname.includes('/template-generator')
+      active: pathname.includes('/generator')
     },
     {
       href: '/templates',
