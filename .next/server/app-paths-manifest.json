@@ -1,12 +1,12 @@
 {
   "/_not-found": "app/_not-found.js",
-  "/about/page": "app/about/page.js",
   "/api/presentations/[id]/route": "app/api/presentations/[id]/route.js",
-  "/api/ai/generate-slides/route": "app/api/ai/generate-slides/route.js",
-  "/generator/page": "app/generator/page.js",
   "/api/presentations/route": "app/api/presentations/route.js",
+  "/generator/page": "app/generator/page.js",
+  "/about/page": "app/about/page.js",
   "/page": "app/page.js",
   "/presentation/[id]/[slide]/page": "app/presentation/[id]/[slide]/page.js",
+  "/api/ai/generate-slides/route": "app/api/ai/generate-slides/route.js",
   "/templates/page": "app/templates/page.js",
   "/view/[id]/page": "app/view/[id]/page.js"
 }

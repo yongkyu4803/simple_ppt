@@ -495,9 +495,20 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
         </button>
       </div>
       
+      {/* 디버깅 정보 (개발 환경에서만) */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="absolute top-4 left-4 z-50 bg-black bg-opacity-75 text-white p-2 rounded text-xs">
+          <div>슬라이드: {currentSlide + 1}/{slideContents.length}</div>
+          <div>데이터: {slideContents.length > 0 ? '있음' : '없음'}</div>
+          <div>현재 타입: {slideContents[currentSlide]?.type || 'N/A'}</div>
+        </div>
+      )}
+      
       {/* 프레젠테이션 렌더링 */}
       {slideContents.length > 0 && currentSlide < slideContents.length ? (
-        renderBasicTemplate(slideContents, currentSlide, companyName)
+        <div className="w-full h-screen">
+          {renderBasicTemplate(slideContents, currentSlide, companyName)}
+        </div>
       ) : (
         <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
           <div className="text-center bg-white p-8 rounded-lg shadow-lg max-w-md">
