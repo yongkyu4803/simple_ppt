@@ -680,7 +680,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
         </button>
 
         {/* 다운로드 드롭다운 메뉴 */}
-        {slideContents.length > 0 && !isEditing && (
+        {slideContents.length > 0 && (
           <div className="relative group">
             <button className="px-4 py-2 bg-white text-purple-600 rounded-lg border border-purple-200 text-sm hover:bg-purple-50 shadow-md font-medium">
               📥 다운로드
@@ -698,6 +698,20 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
                   onClick={downloadAsHTML}
                   className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
                 >
+                  🌐 HTML 파일
+                  <span className="text-xs text-gray-500">(.html)</span>
+                </button>
+                <button
+                  onClick={downloadAsPDF}
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                >
+                  📑 PDF 파일
+                  <span className="text-xs text-gray-500">(.pdf)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
                   🌐 HTML 파일
                   <span className="text-xs text-gray-500">(.html)</span>
                 </button>
