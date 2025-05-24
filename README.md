@@ -1,118 +1,83 @@
-# Simple Presentation Viewer
+# Simple Presentation
 
-Next.js로 만든 간단한 프레젠테이션 뷰어입니다. 프레젠테이션을 폴더 구조로 관리하고 PDF로 내보낼 수 있습니다.
+AI 기능이 포함된 웹 기반 프레젠테이션 도구입니다.
 
-## 특징
+## 🚀 주요 기능
 
-- **Next.js 기반 프레젠테이션**: 웹 기술을 활용한 프레젠테이션 구현
-- **폴더 기반 관리**: 각 프레젠테이션은 개별 폴더에서 관리
-- **PDF 내보내기**: 프레젠테이션을 PDF로 저장 가능
-- **애니메이션 효과**: Framer Motion을 활용한 부드러운 전환 효과
-- **반응형 디자인**: 다양한 디바이스에서 잘 작동
+- **AI 프레젠테이션 생성**: 주제만 입력하면 자동으로 슬라이드 생성
+- **JSON 기반 템플릿**: 데이터와 디자인 분리로 효율적인 관리
+- **다양한 슬라이드 타입**: title, content, bullet, two-column, comparison 등
+- **실시간 편집**: 즉시 미리보기와 편집 기능
+- **Supabase 연동**: 클라우드 데이터베이스 저장
 
-## 구조
+## 🛠️ 로컬 개발 환경 설정
 
-```
-simple_ppt/
-├── app/                  # Next.js 앱 디렉토리
-│   ├── view/[id]/        # 프레젠테이션 뷰 페이지
-│   ├── globals.css       # 전역 스타일
-│   └── layout.tsx        # 루트 레이아웃
-├── components/           # UI 컴포넌트 (필요한 경우)
-├── presentations/        # 프레젠테이션 폴더
-│   ├── demo/             # 데모 프레젠테이션
-│   └── digital-transformation/ # 디지털 혁신 프레젠테이션
-└── public/               # 정적 파일 (이미지 등)
-```
-
-## 프레젠테이션 구성 방법
-
-프레젠테이션을 추가하려면 다음 단계를 따르세요:
-
-1. `presentations` 폴더 안에 새 폴더 생성 (예: `my-presentation`)
-2. 그 안에 `Presentation.tsx` 파일 생성 및 내용 작성
-3. 홈페이지 `app/page.tsx`에 프레젠테이션 정보 추가
-
-```tsx
-// 프레젠테이션 컴포넌트 기본 구조
-'use client';
-
-import React from 'react';
-import { motion } from 'framer-motion';
-
-interface MyPresentationProps {
-  currentSlide: number;
-}
-
-const MyPresentation: React.FC<MyPresentationProps> = ({ currentSlide }) => {
-  // 슬라이드별 렌더링
-  const renderSlide = () => {
-    switch (currentSlide) {
-      case 0:
-        return (
-          <div className="slide-content">
-            <h1 className="slide-title">제목</h1>
-            <h2 className="slide-subtitle">부제목</h2>
-          </div>
-        );
-      case 1:
-        return (
-          <div className="slide-content">
-            <h2>두 번째 슬라이드</h2>
-            <ul>
-              <li>항목 1</li>
-              <li>항목 2</li>
-            </ul>
-          </div>
-        );
-      // 추가 슬라이드...
-      default:
-        return null;
-    }
-  };
-  
-  return (
-    <div className="slide">
-      {renderSlide()}
-    </div>
-  );
-};
-
-export default MyPresentation;
-```
-
-## 설치 및 실행
-
+### 1. 저장소 클론 및 의존성 설치
 ```bash
-# 의존성 설치
+git clone https://github.com/yongkyu4803/simple_ppt.git
+cd simple_ppt
 npm install
-
-# 개발 서버 실행
-npm run dev
-
-# 빌드
-npm run build
-
-# 빌드된 앱 실행
-npm run start
 ```
 
-## PDF 내보내기
+### 2. 환경 변수 설정
+```bash
+# .env.example을 .env.local로 복사
+cp .env.example .env.local
 
-프레젠테이션 뷰 페이지에서 하단 컨트롤 영역의 PDF 아이콘을 클릭하면 현재 프레젠테이션이 PDF로 저장됩니다.
+# .env.local 파일을 편집하여 실제 값 입력
+```
 
-## 기술 스택
+### 3. 개발 서버 실행
+```bash
+npm run dev
+```
 
-- Next.js 14
-- React 18
-- TypeScript
-- Tailwind CSS
-- Framer Motion (애니메이션)
-- React-to-PDF (PDF 내보내기)
-- React Icons
+## 🌐 Vercel 배포 설정
 
-## 커스터마이징
+### 환경 변수 설정 (Vercel 대시보드에서)
 
-- `presentations` 폴더에 새 프레젠테이션 추가
-- `app/view/[id]/page.tsx` 파일의 `presentationMap`에 새 프레젠테이션 매핑 추가
-- `app/globals.css`에서 스타일 커스터마이징
+**필수 환경 변수:**
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+**선택적 환경 변수:**
+```bash
+OPENAI_API_KEY=your_openai_key  # AI 기능 활성화용
+```
+
+### 설정 방법:
+1. Vercel 대시보드 → 프로젝트 선택
+2. Settings → Environment Variables
+3. 위의 환경 변수들을 하나씩 추가
+4. Production, Preview, Development 모두 선택
+
+## 📝 사용 방법
+
+1. **AI로 생성**: `/presentation/template-generator/0`에서 주제 입력 후 "AI 생성" 클릭
+2. **수동 편집**: JSON 형식으로 직접 편집 가능
+3. **저장**: 생성된 프레젠테이션을 데이터베이스에 저장
+4. **네비게이션**: 화살표 키 또는 버튼으로 슬라이드 이동
+
+## 🎨 슬라이드 타입
+
+- `title`: 제목 슬라이드
+- `content`: 일반 내용 슬라이드
+- `bullet`: 불릿 포인트 슬라이드
+- `two-column`: 2컬럼 레이아웃
+- `comparison`: 비교 슬라이드
+- `image`: 이미지 포함 슬라이드
+- `thank-you`: 마무리 슬라이드
+
+## 🔧 기술 스택
+
+- **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
+- **Animation**: Framer Motion
+- **Database**: Supabase (PostgreSQL)
+- **AI**: OpenAI GPT-4 (선택적)
+- **Deployment**: Vercel
+
+## 📄 라이센스
+
+MIT License
