@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { supabase, supabaseAdmin } from '@/lib/supabase'
 
 // GET - 모든 프레젠테이션 조회
 export async function GET(request: NextRequest) {
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     const userId = searchParams.get('user_id')
     const isPublic = searchParams.get('public') === 'true'
 
-    let query = supabase
+    let query = supabaseAdmin
       .from('presentations')
       .select('*')
       .order('created_at', { ascending: false })
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('presentations')
       .insert({
         title,

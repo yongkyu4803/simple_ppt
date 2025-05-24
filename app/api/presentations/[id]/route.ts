@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase'
 
 interface Params {
   id: string
@@ -11,7 +11,7 @@ export async function GET(
   { params }: { params: Params }
 ) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('presentations')
       .select('*')
       .eq('id', params.id)
