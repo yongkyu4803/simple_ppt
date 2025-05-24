@@ -10,11 +10,12 @@ interface TemplateGeneratorProps {
 }
 
 // 템플릿 생성기
-const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) => {
+const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: initialSlide }) => {
   const router = useRouter();
   
   // 상태: JSON 형식의 슬라이드 콘텐츠를 저장
   const [slideContents, setSlideContents] = useState<any[]>([]);
+  const [currentSlide, setCurrentSlide] = useState(initialSlide || 0);
   const [companyName, setCompanyName] = useState('기본 회사명');
   const [jsonInput, setJsonInput] = useState('');
   const [isEditing, setIsEditing] = useState(true);
@@ -87,6 +88,46 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
       return () => clearTimeout(timeoutId);
     }
   }, [slideContents, companyName, jsonInput]);
+  
+  // 키보드 네비게이션 이벤트 처리
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isEditing && slideContents.length > 0) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+          e.preventDefault();
+          setCurrentSlide(prev => Math.min(prev + 1, slideContents.length - 1));
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          setCurrentSlide(prev => Math.max(prev - 1, 0));
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          setCurrentSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          setCurrentSlide(slideContents.length - 1);
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          setIsEditing(true);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isEditing, slideContents.length]);
+
+  // 슬라이드 네비게이션 함수들
+  const goToNextSlide = () => {
+    setCurrentSlide(prev => Math.min(prev + 1, slideContents.length - 1));
+  };
+
+  const goToPrevSlide = () => {
+    setCurrentSlide(prev => Math.max(prev - 1, 0));
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(Math.max(0, Math.min(index, slideContents.length - 1)));
+  };
   
   // 샘플 JSON 데이터
   const sampleJSON = JSON.stringify([
@@ -181,6 +222,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
       
       setSlideContents(data.slides);
       setJsonInput(JSON.stringify(data.slides, null, 2));
+      setCurrentSlide(0); // 첫 번째 슬라이드로 이동
       setIsEditing(false);
       
       // 성공 메시지를 비동기로 표시
@@ -214,6 +256,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
       
       // 상태 업데이트를 배치로 처리
       setSlideContents(parsedData);
+      setCurrentSlide(0); // 첫 번째 슬라이드로 이동
       setIsEditing(false);
       
       // 성공 메시지를 비동기로 표시
@@ -495,6 +538,67 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
           {isSaving ? '저장 중...' : '💾 저장'}
         </button>
       </div>
+
+      {/* 슬라이드 네비게이션 컨트롤 */}
+      {slideContents.length > 0 && !isEditing && (
+        <>
+          {/* 슬라이드 번호 표시 */}
+          <div className="absolute top-4 left-4 z-50 bg-black bg-opacity-75 text-white px-3 py-2 rounded-lg">
+            <span className="text-sm font-medium">
+              {currentSlide + 1} / {slideContents.length}
+            </span>
+          </div>
+
+          {/* 하단 네비게이션 */}
+          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-3 bg-black bg-opacity-75 px-4 py-3 rounded-full">
+            {/* 이전 버튼 */}
+            <button
+              onClick={goToPrevSlide}
+              disabled={currentSlide === 0}
+              className="p-2 text-white hover:text-blue-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors"
+              title="이전 슬라이드 (← 또는 ↑)"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* 슬라이드 점 표시 */}
+            <div className="flex gap-1">
+              {slideContents.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    index === currentSlide 
+                      ? 'bg-white scale-125' 
+                      : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+                  }`}
+                  title={`슬라이드 ${index + 1}로 이동`}
+                />
+              ))}
+            </div>
+
+            {/* 다음 버튼 */}
+            <button
+              onClick={goToNextSlide}
+              disabled={currentSlide >= slideContents.length - 1}
+              className="p-2 text-white hover:text-blue-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors"
+              title="다음 슬라이드 (→, ↓ 또는 Space)"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* 키보드 단축키 안내 */}
+          <div className="absolute bottom-6 right-6 z-50 bg-black bg-opacity-75 text-white px-3 py-2 rounded-lg text-xs">
+            <div>키보드: ← → ↑ ↓ Space</div>
+            <div>ESC: 편집 모드</div>
+          </div>
+        </>
+      )}
       
       {/* 디버깅 정보 (개발 환경에서만) */}
       {process.env.NODE_ENV === 'development' && (
