@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 pt-8 pb-12">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-gray-800 mb-10">프레젠테이션 구성 방법</h1>
