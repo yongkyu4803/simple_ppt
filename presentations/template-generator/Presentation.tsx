@@ -199,7 +199,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
 </head>
 <body>
     <h1 style="text-align: center; color: #1f2937; margin-bottom: 2rem;">${aiTopic || '프레젠테이션'} - ${companyName}</h1>
-    ${slideContents.map((slide, index) => {
+    ${slideContents.map((slide: any, index: number) => {
       if (slide.type === 'title') {
         return `
         <div class="slide">
@@ -213,7 +213,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
         <div class="slide">
             <div class="slide-number">슬라이드 ${index + 1}</div>
             <h2>${slide.title}</h2>
-            ${Array.isArray(slide.content) ? slide.content.map(p => `<p>${p}</p>`).join('') : `<p>${slide.content}</p>`}
+            ${Array.isArray(slide.content) ? slide.content.map((p: string) => `<p>${p}</p>`).join('') : `<p>${slide.content}</p>`}
         </div>`;
       } else if (slide.type === 'bullet') {
         return `
@@ -221,7 +221,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
             <div class="slide-number">슬라이드 ${index + 1}</div>
             <h2>${slide.title}</h2>
             <ul>
-                ${Array.isArray(slide.content) ? slide.content.map(item => `<li>${item.replace(/^•\s*/, '')}</li>`).join('') : `<li>${slide.content}</li>`}
+                ${Array.isArray(slide.content) ? slide.content.map((item: string) => `<li>${item.replace(/^•\s*/, '')}</li>`).join('') : `<li>${slide.content}</li>`}
             </ul>
         </div>`;
       } else if (slide.type === 'two-column') {
@@ -232,11 +232,11 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
             <div class="two-column">
                 <div class="column">
                     <h3>${slide.leftTitle}</h3>
-                    ${Array.isArray(slide.leftContent) ? slide.leftContent.map(p => `<p>${p}</p>`).join('') : `<p>${slide.leftContent}</p>`}
+                    ${Array.isArray(slide.leftContent) ? slide.leftContent.map((p: string) => `<p>${p}</p>`).join('') : `<p>${slide.leftContent}</p>`}
                 </div>
                 <div class="column">
                     <h3>${slide.rightTitle}</h3>
-                    ${Array.isArray(slide.rightContent) ? slide.rightContent.map(p => `<p>${p}</p>`).join('') : `<p>${slide.rightContent}</p>`}
+                    ${Array.isArray(slide.rightContent) ? slide.rightContent.map((p: string) => `<p>${p}</p>`).join('') : `<p>${slide.rightContent}</p>`}
                 </div>
             </div>
         </div>`;
@@ -740,7 +740,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
 
             {/* 슬라이드 점 표시 */}
             <div className="flex gap-1">
-              {slideContents.map((_, index) => (
+              {slideContents.map((_: any, index: number) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
