@@ -17,6 +17,11 @@
       "static/css/app/view/[id]/page.css",
       "static/chunks/app/view/[id]/page.js"
     ],
+    "/presentation/[id]/[slide]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/presentation/[id]/[slide]/page.js"
+    ],
     "/not-found": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
