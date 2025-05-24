@@ -25,36 +25,52 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // 페이지 로드 시 저장된 데이터 복원
-      const savedContents = sessionStorage.getItem('generatedSlides');
-      const savedCompany = sessionStorage.getItem('companyName');
-      const savedJson = sessionStorage.getItem('jsonInput');
-      
-      if (savedContents) {
-        try {
+      try {
+        const savedContents = sessionStorage.getItem('generatedSlides');
+        const savedCompany = sessionStorage.getItem('companyName');
+        const savedJson = sessionStorage.getItem('jsonInput');
+        
+        if (savedContents) {
           const parsedContents = JSON.parse(savedContents);
-          setSlideContents(parsedContents);
-          setIsEditing(false);
-        } catch (error) {
-          console.error('Failed to parse saved contents:', error);
+          if (Array.isArray(parsedContents) && parsedContents.length > 0) {
+            setSlideContents(parsedContents);
+            setIsEditing(false);
+          }
         }
-      }
-      
-      if (savedCompany) {
-        setCompanyName(savedCompany);
-      }
-      
-      if (savedJson) {
-        setJsonInput(savedJson);
+        
+        if (savedCompany && savedCompany !== 'null') {
+          setCompanyName(savedCompany);
+        }
+        
+        if (savedJson && savedJson !== 'null') {
+          setJsonInput(savedJson);
+        }
+      } catch (error) {
+        console.error('Failed to restore saved data:', error);
+        // 복원 실패 시 세션 스토리지 클리어
+        sessionStorage.removeItem('generatedSlides');
+        sessionStorage.removeItem('companyName');
+        sessionStorage.removeItem('jsonInput');
       }
     }
   }, []);
   
-  // 데이터 변경 시 세션 스토리지에 저장
+  // 데이터 변경 시 세션 스토리지에 저장 (디바운싱 적용)
   useEffect(() => {
-    if (typeof window !== 'undefined' && slideContents.length > 0) {
-      sessionStorage.setItem('generatedSlides', JSON.stringify(slideContents));
-      sessionStorage.setItem('companyName', companyName);
-      sessionStorage.setItem('jsonInput', jsonInput);
+    if (typeof window !== 'undefined') {
+      const timeoutId = setTimeout(() => {
+        if (slideContents.length > 0) {
+          sessionStorage.setItem('generatedSlides', JSON.stringify(slideContents));
+        }
+        if (companyName && companyName !== '기본 회사명') {
+          sessionStorage.setItem('companyName', companyName);
+        }
+        if (jsonInput) {
+          sessionStorage.setItem('jsonInput', jsonInput);
+        }
+      }, 500); // 500ms 디바운싱
+      
+      return () => clearTimeout(timeoutId);
     }
   }, [slideContents, companyName, jsonInput]);
   
@@ -246,6 +262,21 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
     setIsEditing(true);
   };
 
+  // 디버깅용 useEffect
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Template Generator State:', {
+        aiTopic,
+        companyName,
+        jsonInput: jsonInput.length,
+        isEditing,
+        isGenerating,
+        isSaving,
+        slideContents: slideContents.length
+      });
+    }
+  }, [aiTopic, companyName, jsonInput, isEditing, isGenerating, isSaving, slideContents]);
+
   // 편집 화면 렌더링
   if (isEditing) {
     return (
@@ -273,7 +304,13 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
                 placeholder="프레젠테이션 주제를 입력하세요 (예: 회사 소개, 신제품 마케팅 전략, 인공지능 기술 소개)"
                 className="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 disabled={isGenerating}
-                onKeyPress={(e) => e.key === 'Enter' && !isGenerating && aiTopic.trim() && generateWithAI()}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && !isGenerating && aiTopic.trim()) {
+                    e.preventDefault();
+                    generateWithAI();
+                  }
+                }}
+                autoComplete="off"
               />
               <button
                 onClick={generateWithAI}
@@ -300,6 +337,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
                   onChange={(e) => setCompanyName(e.target.value)}
                   className="p-3 border border-gray-300 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="회사명을 입력하세요"
+                  autoComplete="off"
                 />
               </div>
             
@@ -318,8 +356,10 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
                 <textarea
                   value={jsonInput}
                   onChange={(e) => setJsonInput(e.target.value)}
-                  className="p-4 font-mono text-sm border border-gray-300 rounded-lg w-full h-96 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="p-4 font-mono text-sm border border-gray-300 rounded-lg w-full h-96 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   placeholder="JSON 형식으로 슬라이드 내용을 입력하세요..."
+                  spellCheck={false}
+                  autoComplete="off"
                 />
               </div>
             
@@ -429,3 +469,12 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
 };
 
 export default TemplateGenerator;
+
+// 디버깅용 로그
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+  (window as any).debugTemplateGenerator = {
+    getState: () => ({
+      // 상태를 확인할 수 있는 함수들을 여기에 추가할 수 있습니다
+    })
+  };
+}

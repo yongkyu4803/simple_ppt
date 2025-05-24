@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        textarea {
+            height: 200px;
+            font-family: monospace;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .debug {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>프레젠테이션 생성기 입력 테스트</h1>
+    
+    <div class="form-group">
+        <label for="topic">AI 주제 입력:</label>
+        <input type="text" id="topic" placeholder="프레젠테이션 주제를 입력하세요" />
+    </div>
+    
+    <div class="form-group">
+        <label for="company">회사명:</label>
+        <input type="text" id="company" value="기본 회사명" />
+    </div>
+    
+    <div class="form-group">
+        <label for="json">JSON 입력:</label>
+        <textarea id="json" placeholder="JSON 형식으로 슬라이드 내용을 입력하세요..."></textarea>
+    </div>
+    
+    <button onclick="testInput()">테스트 실행</button>
+    <button onclick="clearAll()">모두 지우기</button>
+    
+    <div class="debug" id="debug">
+        디버그 정보가 여기에 표시됩니다...
+    </div>
+
+    <script>
+        let isGenerating = false;
+        
+        function updateDebug() {
+            const topic = document.getElementById('topic').value;
+            const company = document.getElementById('company').value;
+            const json = document.getElementById('json').value;
+            
+            const debugInfo = {
+                topic: topic,
+                company: company,
+                jsonLength: json.length,
+                isGenerating: isGenerating,
+                timestamp: new Date().toLocaleTimeString()
+            };
+            
+            document.getElementById('debug').textContent = JSON.stringify(debugInfo, null, 2);
+        }
+        
+        function testInput() {
+            isGenerating = true;
+            updateDebug();
+            
+            setTimeout(() => {
+                isGenerating = false;
+                updateDebug();
+                alert('테스트 완료!');
+            }, 2000);
+        }
+        
+        function clearAll() {
+            document.getElementById('topic').value = '';
+            document.getElementById('company').value = '기본 회사명';
+            document.getElementById('json').value = '';
+            updateDebug();
+        }
+        
+        // 실시간 업데이트
+        document.getElementById('topic').addEventListener('input', updateDebug);
+        document.getElementById('company').addEventListener('input', updateDebug);
+        document.getElementById('json').addEventListener('input', updateDebug);
+        
+        // 초기 상태 표시
+        updateDebug();
+        
+        // 페이지 로드 시 포커스
+        window.addEventListener('load', () => {
+            document.getElementById('topic').focus();
+        });
+    </script>
+</body>
+</html>
