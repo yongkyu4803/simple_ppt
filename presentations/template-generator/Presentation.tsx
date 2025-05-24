@@ -712,20 +712,6 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
             </div>
           </div>
         )}
-                  🌐 HTML 파일
-                  <span className="text-xs text-gray-500">(.html)</span>
-                </button>
-                <button
-                  onClick={downloadAsPDF}
-                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
-                >
-                  📑 PDF 파일
-                  <span className="text-xs text-gray-500">(.pdf)</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* 슬라이드 네비게이션 컨트롤 */}
