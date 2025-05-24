@@ -4,6 +4,14 @@ import { supabase } from '@/lib/supabase'
 // GET - 모든 프레젠테이션 조회
 export async function GET(request: NextRequest) {
   try {
+    // Supabase 연결 확인
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://placeholder.supabase.co') {
+      return NextResponse.json({ 
+        error: 'Database not configured',
+        message: 'Supabase environment variables are not set'
+      }, { status: 503 })
+    }
+
     const { searchParams } = new URL(request.url)
     const userId = searchParams.get('user_id')
     const isPublic = searchParams.get('public') === 'true'
@@ -35,6 +43,14 @@ export async function GET(request: NextRequest) {
 // POST - 새 프레젠테이션 생성
 export async function POST(request: NextRequest) {
   try {
+    // Supabase 연결 확인
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://placeholder.supabase.co') {
+      return NextResponse.json({ 
+        error: 'Database not configured',
+        message: 'Supabase environment variables are not set'
+      }, { status: 503 })
+    }
+
     const body = await request.json()
     const {
       title,
