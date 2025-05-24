@@ -49,11 +49,8 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
       setSlideContents(parsedData);
       setIsEditing(false);
     } catch (error) {
-      if (error instanceof Error) {
-        alert(`JSON 파싱 오류: ${error.message}`);
-      } else {
-        alert("JSON 파싱 오류: 알 수 없는 에러");
-      }
+      const errorMessage = error instanceof Error ? error.message : "알 수 없는 에러";
+      alert(`JSON 파싱 오류: ${errorMessage}`);
     }
   };
 
