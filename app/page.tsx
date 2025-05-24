@@ -11,6 +11,10 @@ interface PresentationMeta {
   icon: string;
 }
 
+interface PresentationWithIcon extends Omit<PresentationMeta, 'icon'> {
+  icon: any;
+}
+
 // 아이콘 매핑
 const iconComponents = {
   FaRegFileAlt,
@@ -24,14 +28,32 @@ const iconComponents = {
 };
 
 export default function Home() {
-  const [presentations, setPresentations] = useState<Array<PresentationMeta & { icon: any }>>([]);
+  const [presentations, setPresentations] = useState<PresentationWithIcon[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPresentations = async () => {
       try {
-        const response = await fetch('/api/presentations');
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10초 타임아웃
+        
+        const response = await fetch('/api/presentations', {
+          signal: controller.signal,
+          cache: 'no-store'
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
+        
+        // 데이터 유효성 검사
+        if (!Array.isArray(data)) {
+          throw new Error('Invalid data format received');
+        }
         
         // 아이콘 컴포넌트와 함께 프레젠테이션 목록 구성
         const presentationsWithIcons = data.map((meta: PresentationMeta) => ({
@@ -42,12 +64,17 @@ export default function Home() {
         setPresentations(presentationsWithIcons);
       } catch (error) {
         console.error('Error fetching presentations:', error);
-        // 기본 프레젠테이션 목록으로 폴백
-        setPresentations([
-          { id: 'demo', title: '데모 프레젠테이션', description: '새롭게 디자인된 프레젠테이션 템플릿', icon: 'FaRocket' },
-          { id: 'digital-transformation', title: '디지털 혁신 전략', description: '디지털 트랜스포메이션 프레젠테이션', icon: 'FaLayerGroup' },
-          { id: 'modern', title: '모던 프레젠테이션', description: '현대적인 디자인의 프레젠테이션', icon: 'FaRegFileAlt' },
-        ]);
+        
+        // 네트워크 오류나 타임아웃의 경우 기본 프레젠테이션 목록으로 폴백
+        const fallbackPresentations = [
+          { id: 'demo', title: '데모 프레젠테이션', description: '새롭게 디자인된 프레젠테이션 템플릿', icon: FaRocket as any },
+          { id: 'digital-transformation', title: '디지털 혁신 전략', description: '디지털 트랜스포메이션 프레젠테이션', icon: FaLayerGroup as any },
+          { id: 'modern', title: '모던 프레젠테이션', description: '현대적인 디자인의 프레젠테이션', icon: FaRegFileAlt as any },
+          { id: 'musicow', title: 'Musicow 프레젠테이션', description: '음악 관련 서비스 소개', icon: FaPen as any },
+          { id: 'project-proposal', title: '프로젝트 제안서', description: '프로젝트 제안 템플릿', icon: FaProjectDiagram as any },
+        ];
+        
+        setPresentations(fallbackPresentations);
       } finally {
         setLoading(false);
       }

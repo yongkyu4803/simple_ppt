@@ -113,6 +113,9 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
 
     setIsGenerating(true);
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30초 타임아웃
+      
       const response = await fetch('/api/ai/generate-slides', {
         method: 'POST',
         headers: {
@@ -122,14 +125,23 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
           topic: aiTopic,
           style: 'business',
           slideCount: 5
-        })
+        }),
+        signal: controller.signal,
+        cache: 'no-store'
       });
 
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
-        throw new Error('AI 생성 실패');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
+      
+      if (!data.slides || !Array.isArray(data.slides)) {
+        throw new Error('Invalid response format');
+      }
+      
       setSlideContents(data.slides);
       setJsonInput(JSON.stringify(data.slides, null, 2));
       setIsEditing(false);
@@ -137,6 +149,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
       // 성공 메시지 표시
       alert('AI가 프레젠테이션을 성공적으로 생성했습니다! 🎉');
     } catch (error) {
+      console.error('AI generation error:', error);
       const errorMessage = error instanceof Error ? error.message : "AI 생성 중 오류가 발생했습니다";
       alert(`AI 생성 오류: ${errorMessage}`);
     } finally {

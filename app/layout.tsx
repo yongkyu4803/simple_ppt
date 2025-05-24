@@ -20,6 +20,33 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // 브라우저 확장 프로그램 오류 방지
+              if (typeof chrome !== 'undefined' && chrome.runtime) {
+                chrome.runtime.onMessage = chrome.runtime.onMessage || function() {};
+              }
+              
+              // 전역 에러 핸들러
+              window.addEventListener('error', function(e) {
+                if (e.message && e.message.includes('runtime.lastError')) {
+                  e.preventDefault();
+                  return false;
+                }
+              });
+              
+              window.addEventListener('unhandledrejection', function(e) {
+                if (e.reason && e.reason.message && e.reason.message.includes('runtime.lastError')) {
+                  e.preventDefault();
+                  return false;
+                }
+              });
+            `,
+          }}
+        />
+      </head>
       <body className={`${notoSansKr.variable} font-sans`}>{children}</body>
     </html>
   );
