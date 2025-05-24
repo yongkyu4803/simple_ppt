@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { renderBasicTemplate } from '../templates';
 import { useRouter } from 'next/navigation';
 
@@ -55,20 +55,33 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
     }
   }, []);
   
-  // 데이터 변경 시 세션 스토리지에 저장 (디바운싱 적용)
+  // 데이터 변경 시 세션 스토리지에 저장 (디바운싱 + 성능 최적화)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const timeoutId = setTimeout(() => {
-        if (slideContents.length > 0) {
-          sessionStorage.setItem('generatedSlides', JSON.stringify(slideContents));
+        // requestIdleCallback을 사용하여 브라우저가 유휴 상태일 때 실행
+        const saveToStorage = () => {
+          try {
+            if (slideContents.length > 0) {
+              sessionStorage.setItem('generatedSlides', JSON.stringify(slideContents));
+            }
+            if (companyName && companyName !== '기본 회사명') {
+              sessionStorage.setItem('companyName', companyName);
+            }
+            if (jsonInput) {
+              sessionStorage.setItem('jsonInput', jsonInput);
+            }
+          } catch (error) {
+            console.warn('Failed to save to sessionStorage:', error);
+          }
+        };
+
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(saveToStorage);
+        } else {
+          setTimeout(saveToStorage, 0);
         }
-        if (companyName && companyName !== '기본 회사명') {
-          sessionStorage.setItem('companyName', companyName);
-        }
-        if (jsonInput) {
-          sessionStorage.setItem('jsonInput', jsonInput);
-        }
-      }, 500); // 500ms 디바운싱
+      }, 1000); // 1초 디바운싱
       
       return () => clearTimeout(timeoutId);
     }
@@ -120,7 +133,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
     }
   ], null, 2);
 
-  // AI로 슬라이드 생성 함수
+  // AI로 슬라이드 생성 함수 (성능 최적화)
   const generateWithAI = async () => {
     if (!aiTopic.trim()) {
       alert('주제를 입력해주세요');
@@ -128,9 +141,13 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
     }
 
     setIsGenerating(true);
+    
+    // UI 업데이트를 위한 짧은 지연
+    await new Promise(resolve => setTimeout(resolve, 50));
+    
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30초 타임아웃
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
       
       const response = await fetch('/api/ai/generate-slides', {
         method: 'POST',
@@ -158,34 +175,58 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
         throw new Error('Invalid response format');
       }
       
+      // UI 업데이트를 배치로 처리
+      await new Promise(resolve => setTimeout(resolve, 10));
+      
       setSlideContents(data.slides);
       setJsonInput(JSON.stringify(data.slides, null, 2));
       setIsEditing(false);
       
-      // 성공 메시지 표시
-      alert('AI가 프레젠테이션을 성공적으로 생성했습니다! 🎉');
+      // 성공 메시지를 비동기로 표시
+      setTimeout(() => {
+        alert('AI가 프레젠테이션을 성공적으로 생성했습니다! 🎉');
+      }, 100);
+      
     } catch (error) {
       console.error('AI generation error:', error);
       const errorMessage = error instanceof Error ? error.message : "AI 생성 중 오류가 발생했습니다";
-      alert(`AI 생성 오류: ${errorMessage}`);
+      
+      // 에러 메시지도 비동기로 표시
+      setTimeout(() => {
+        alert(`AI 생성 오류: ${errorMessage}`);
+      }, 100);
     } finally {
       setIsGenerating(false);
     }
   };
 
-  // JSON 데이터 적용 함수
-  const applyJSON = () => {
+  // JSON 데이터 적용 함수 (성능 최적화)
+  const applyJSON = async () => {
     try {
+      // UI 업데이트를 위한 짧은 지연
+      await new Promise(resolve => setTimeout(resolve, 10));
+      
       const parsedData = JSON.parse(jsonInput);
       if (!Array.isArray(parsedData)) {
         throw new Error('JSON 데이터는 배열 형태여야 합니다');
       }
+      
+      // 상태 업데이트를 배치로 처리
       setSlideContents(parsedData);
       setIsEditing(false);
-      alert('프레젠테이션이 성공적으로 생성되었습니다! 🎉');
+      
+      // 성공 메시지를 비동기로 표시
+      setTimeout(() => {
+        alert('프레젠테이션이 성공적으로 생성되었습니다! 🎉');
+      }, 50);
+      
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "알 수 없는 에러";
-      alert(`JSON 파싱 오류: ${errorMessage}`);
+      
+      // 에러 메시지도 비동기로 표시
+      setTimeout(() => {
+        alert(`JSON 파싱 오류: ${errorMessage}`);
+      }, 50);
     }
   };
 
@@ -261,6 +302,21 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
     setCompanyName('기본 회사명');
     setIsEditing(true);
   };
+
+  // 디바운싱된 입력 핸들러
+  const debouncedSetAiTopic = useCallback((value: string) => {
+    const timeoutId = setTimeout(() => {
+      setAiTopic(value);
+    }, 300);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  const debouncedSetJsonInput = useCallback((value: string) => {
+    const timeoutId = setTimeout(() => {
+      setJsonInput(value);
+    }, 500);
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   // 디버깅용 useEffect
   useEffect(() => {
@@ -365,9 +421,14 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
             
               <div className="flex gap-3">
                 <button
-                  onClick={applyJSON}
+                  onClick={() => {
+                    // 즉시 UI 피드백 제공
+                    if (jsonInput.trim()) {
+                      applyJSON();
+                    }
+                  }}
                   disabled={!jsonInput.trim()}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium transition-colors duration-200"
                 >
                   ✨ 적용하기
                 </button>
