@@ -679,12 +679,19 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
           {isSaving ? '저장 중...' : '💾 저장'}
         </button>
 
-        {/* 다운로드 드롭다운 메뉴 */}
-        {slideContents.length > 0 && (
-          <div className="relative group">
-            <button className="px-4 py-2 bg-white text-purple-600 rounded-lg border border-purple-200 text-sm hover:bg-purple-50 shadow-md font-medium">
-              📥 다운로드
-            </button>
+        {/* 다운로드 드롭다운 메뉴 - 항상 표시 */}
+        <div className="relative group">
+          <button 
+            className={`px-4 py-2 rounded-lg border text-sm shadow-md font-medium transition-colors ${
+              slideContents.length === 0 
+                ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed' 
+                : 'bg-purple-600 text-white border-purple-600 hover:bg-purple-700'
+            }`}
+            disabled={slideContents.length === 0}
+          >
+            📥 다운로드 {slideContents.length > 0 && `(${slideContents.length}슬라이드)`}
+          </button>
+          {slideContents.length > 0 && (
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
               <div className="py-2">
                 <button
@@ -710,8 +717,8 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
                 </button>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* 슬라이드 네비게이션 컨트롤 */}
