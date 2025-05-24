@@ -7,3 +7,4 @@ export * from './LayoutComponents';
 export * from './ImageSlide';
 export * from './MoreSlides';
 export { default as renderBasicTemplate } from './TemplateRenderer';
+export { default as renderPremiumTemplate } from './PremiumRenderer';

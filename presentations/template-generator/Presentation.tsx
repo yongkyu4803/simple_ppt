@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { renderBasicTemplate } from '../templates';
+import { renderPremiumTemplate } from '../templates/PremiumRenderer';
 import { useRouter } from 'next/navigation';
 
 interface TemplateGeneratorProps {
@@ -507,7 +508,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide }) =
       {/* 프레젠테이션 렌더링 */}
       {slideContents.length > 0 && currentSlide < slideContents.length ? (
         <div className="w-full h-screen">
-          {renderBasicTemplate(slideContents, currentSlide, companyName)}
+          {renderPremiumTemplate(slideContents, currentSlide, companyName)}
         </div>
       ) : (
         <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
