@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { renderBasicTemplate } from '../templates';
 import { renderPremiumTemplate } from '../templates/PremiumRenderer';
 import { useRouter } from 'next/navigation';
@@ -25,8 +25,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
   const [isSaving, setIsSaving] = useState(false);
   
   // PDF 생성을 위한 ref와 훅
-  const presentationRef = useRef<HTMLDivElement>(null);
-  const { toPDF } = usePDF({
+  const { toPDF, targetRef } = usePDF({
     filename: `presentation-${aiTopic || 'generated'}.pdf`,
     page: { format: 'A4', orientation: 'landscape' }
   });
@@ -145,22 +144,8 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
     }
 
     try {
-      // 모든 슬라이드를 캡처하기 위해 각 슬라이드를 순차적으로 PDF로 생성
-      const originalSlide = currentSlide;
-      
-      for (let i = 0; i < slideContents.length; i++) {
-        setCurrentSlide(i);
-        await new Promise(resolve => setTimeout(resolve, 1000)); // 렌더링 대기
-        
-        if (presentationRef.current) {
-          await toPDF({
-            targetRef: presentationRef,
-            filename: `${aiTopic || 'presentation'}-slide-${i + 1}.pdf`
-          });
-        }
-      }
-      
-      setCurrentSlide(originalSlide); // 원래 슬라이드로 복원
+      // react-to-pdf의 toPDF 함수 사용
+      await toPDF();
       alert('PDF 다운로드가 완료되었습니다!');
     } catch (error) {
       console.error('PDF 생성 오류:', error);
@@ -801,7 +786,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
       
       {/* 프레젠테이션 렌더링 */}
       {slideContents.length > 0 && currentSlide < slideContents.length ? (
-        <div ref={presentationRef} className="w-full h-screen">
+        <div ref={targetRef} className="w-full h-screen">
           {renderPremiumTemplate(slideContents, currentSlide, companyName)}
         </div>
       ) : (
