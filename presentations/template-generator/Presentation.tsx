@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { renderBasicTemplate } from '../templates';
 import { renderPremiumTemplate } from '../templates/PremiumRenderer';
 import { useRouter } from 'next/navigation';
+import { usePDF } from 'react-to-pdf';
 
 interface TemplateGeneratorProps {
   currentSlide: number;
@@ -22,6 +23,13 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiTopic, setAiTopic] = useState('');
   const [isSaving, setIsSaving] = useState(false);
+  
+  // PDF 생성을 위한 ref와 훅
+  const presentationRef = useRef<HTMLDivElement>(null);
+  const { toPDF } = usePDF({
+    filename: `presentation-${aiTopic || 'generated'}.pdf`,
+    page: { format: 'A4', orientation: 'landscape' }
+  });
   
   // 브라우저 환경에서만 실행
   useEffect(() => {
@@ -127,6 +135,154 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
 
   const goToSlide = (index: number) => {
     setCurrentSlide(Math.max(0, Math.min(index, slideContents.length - 1)));
+  };
+
+  // 다운로드 함수들
+  const downloadAsPDF = async () => {
+    if (slideContents.length === 0) {
+      alert('다운로드할 프레젠테이션이 없습니다');
+      return;
+    }
+
+    try {
+      // 모든 슬라이드를 캡처하기 위해 각 슬라이드를 순차적으로 PDF로 생성
+      const originalSlide = currentSlide;
+      
+      for (let i = 0; i < slideContents.length; i++) {
+        setCurrentSlide(i);
+        await new Promise(resolve => setTimeout(resolve, 1000)); // 렌더링 대기
+        
+        if (presentationRef.current) {
+          await toPDF({
+            targetRef: presentationRef,
+            filename: `${aiTopic || 'presentation'}-slide-${i + 1}.pdf`
+          });
+        }
+      }
+      
+      setCurrentSlide(originalSlide); // 원래 슬라이드로 복원
+      alert('PDF 다운로드가 완료되었습니다!');
+    } catch (error) {
+      console.error('PDF 생성 오류:', error);
+      alert('PDF 생성 중 오류가 발생했습니다.');
+    }
+  };
+
+  const downloadAsJSON = () => {
+    if (slideContents.length === 0) {
+      alert('다운로드할 데이터가 없습니다');
+      return;
+    }
+
+    const dataStr = JSON.stringify(slideContents, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${aiTopic || 'presentation'}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const downloadAsHTML = () => {
+    if (slideContents.length === 0) {
+      alert('다운로드할 데이터가 없습니다');
+      return;
+    }
+
+    // HTML 템플릿 생성
+    const htmlContent = `
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${aiTopic || '프레젠테이션'} - ${companyName}</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .slide { background: white; margin: 20px 0; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .slide h1 { color: #1f2937; font-size: 2.5rem; margin-bottom: 1rem; }
+        .slide h2 { color: #374151; font-size: 2rem; margin-bottom: 1.5rem; }
+        .slide p { color: #6b7280; font-size: 1.2rem; line-height: 1.6; margin-bottom: 1rem; }
+        .slide-number { background: #3b82f6; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .column { background: #f8fafc; padding: 1.5rem; border-radius: 8px; }
+        @media print { .slide { page-break-after: always; box-shadow: none; } }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #1f2937; margin-bottom: 2rem;">${aiTopic || '프레젠테이션'} - ${companyName}</h1>
+    ${slideContents.map((slide, index) => {
+      if (slide.type === 'title') {
+        return `
+        <div class="slide">
+            <div class="slide-number">슬라이드 ${index + 1}</div>
+            <h1>${slide.title}</h1>
+            ${slide.subtitle ? `<h2>${slide.subtitle}</h2>` : ''}
+            ${slide.presenter ? `<p><strong>발표자:</strong> ${slide.presenter}</p>` : ''}
+        </div>`;
+      } else if (slide.type === 'content') {
+        return `
+        <div class="slide">
+            <div class="slide-number">슬라이드 ${index + 1}</div>
+            <h2>${slide.title}</h2>
+            ${Array.isArray(slide.content) ? slide.content.map(p => `<p>${p}</p>`).join('') : `<p>${slide.content}</p>`}
+        </div>`;
+      } else if (slide.type === 'bullet') {
+        return `
+        <div class="slide">
+            <div class="slide-number">슬라이드 ${index + 1}</div>
+            <h2>${slide.title}</h2>
+            <ul>
+                ${Array.isArray(slide.content) ? slide.content.map(item => `<li>${item.replace(/^•\s*/, '')}</li>`).join('') : `<li>${slide.content}</li>`}
+            </ul>
+        </div>`;
+      } else if (slide.type === 'two-column') {
+        return `
+        <div class="slide">
+            <div class="slide-number">슬라이드 ${index + 1}</div>
+            <h2>${slide.title}</h2>
+            <div class="two-column">
+                <div class="column">
+                    <h3>${slide.leftTitle}</h3>
+                    ${Array.isArray(slide.leftContent) ? slide.leftContent.map(p => `<p>${p}</p>`).join('') : `<p>${slide.leftContent}</p>`}
+                </div>
+                <div class="column">
+                    <h3>${slide.rightTitle}</h3>
+                    ${Array.isArray(slide.rightContent) ? slide.rightContent.map(p => `<p>${p}</p>`).join('') : `<p>${slide.rightContent}</p>`}
+                </div>
+            </div>
+        </div>`;
+      } else {
+        return `
+        <div class="slide">
+            <div class="slide-number">슬라이드 ${index + 1}</div>
+            <h2>${slide.title || '제목 없음'}</h2>
+        </div>`;
+      }
+    }).join('')}
+    
+    <script>
+        // 키보드 네비게이션
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') window.scrollBy(0, window.innerHeight);
+            if (e.key === 'ArrowLeft') window.scrollBy(0, -window.innerHeight);
+        });
+    </script>
+</body>
+</html>`;
+
+    const dataBlob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${aiTopic || 'presentation'}.html`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
   
   // 샘플 JSON 데이터
@@ -537,6 +693,40 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
         >
           {isSaving ? '저장 중...' : '💾 저장'}
         </button>
+
+        {/* 다운로드 드롭다운 메뉴 */}
+        {slideContents.length > 0 && !isEditing && (
+          <div className="relative group">
+            <button className="px-4 py-2 bg-white text-purple-600 rounded-lg border border-purple-200 text-sm hover:bg-purple-50 shadow-md font-medium">
+              📥 다운로드
+            </button>
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="py-2">
+                <button
+                  onClick={downloadAsJSON}
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                >
+                  📄 JSON 파일
+                  <span className="text-xs text-gray-500">(.json)</span>
+                </button>
+                <button
+                  onClick={downloadAsHTML}
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                >
+                  🌐 HTML 파일
+                  <span className="text-xs text-gray-500">(.html)</span>
+                </button>
+                <button
+                  onClick={downloadAsPDF}
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                >
+                  📑 PDF 파일
+                  <span className="text-xs text-gray-500">(.pdf)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 슬라이드 네비게이션 컨트롤 */}
@@ -611,7 +801,7 @@ const TemplateGenerator: React.FC<TemplateGeneratorProps> = ({ currentSlide: ini
       
       {/* 프레젠테이션 렌더링 */}
       {slideContents.length > 0 && currentSlide < slideContents.length ? (
-        <div className="w-full h-screen">
+        <div ref={presentationRef} className="w-full h-screen">
           {renderPremiumTemplate(slideContents, currentSlide, companyName)}
         </div>
       ) : (
