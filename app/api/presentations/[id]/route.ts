@@ -37,7 +37,7 @@ export async function PUT(
     const body = await request.json()
     const updateData = { ...body, updated_at: new Date().toISOString() }
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('presentations')
       .update(updateData)
       .eq('id', params.id)
@@ -61,7 +61,7 @@ export async function DELETE(
   { params }: { params: Params }
 ) {
   try {
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('presentations')
       .delete()
       .eq('id', params.id)
