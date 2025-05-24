@@ -34,7 +34,7 @@ export const BasicSlide: React.FC<{
   children,
   title,
   subtitle,
-  companyLogo = '/logo.png',
+  companyLogo,
   companyName = '회사명'
 }) => (
   <div className="slide bg-white w-full h-full relative overflow-hidden">
@@ -47,9 +47,21 @@ export const BasicSlide: React.FC<{
       <div className="flex items-center">
         <div className="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center text-white">
           {companyLogo ? (
-            <img src={companyLogo} alt="Logo" className="w-6 h-6" />
+            <img 
+              src={companyLogo} 
+              alt="Logo" 
+              className="w-6 h-6"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const parent = target.parentElement;
+                if (parent) {
+                  parent.innerHTML = '<span class="text-xs font-bold">GQ</span>';
+                }
+              }}
+            />
           ) : (
-            <span className="font-bold text-sm">{companyName.substring(0, 1)}</span>
+            <span className="text-xs font-bold">GQ</span>
           )}
         </div>
         <span className="ml-3 font-medium text-gray-700">{companyName}</span>
