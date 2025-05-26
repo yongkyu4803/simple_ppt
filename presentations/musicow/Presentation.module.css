@@ -35,7 +35,7 @@
 
 /* 사이드바 (오른쪽 20%) */
 .sidebar {
-  width: 20%;
+  width: 10%;
   height: 100%;
   background: linear-gradient(135deg, #eb4657 0%, #d63447 100%);
   display: flex;
