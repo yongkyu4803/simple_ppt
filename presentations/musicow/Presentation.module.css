@@ -763,17 +763,19 @@
   .statsGrid {
     grid-template-columns: 1fr;
   }
-}1rem 0;
-  }
-  
-  .comparisonTable {
-    overflow-x: auto;
-  }
-  
-  .tableHeader,
-  .tableRow {
-    min-width: 600px;
-  }
+}
+
+.someClass {
+  margin: 1rem 0;
+}
+
+.comparisonTable {
+  overflow-x: auto;
+}
+
+.tableHeader,
+.tableRow {
+  min-width: 600px;
 }
 
 @media (max-width: 768px) {
