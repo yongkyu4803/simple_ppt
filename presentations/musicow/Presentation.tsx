@@ -465,4 +465,100 @@ const MusicowPresentation: React.FC<MusicowPresentationProps> = ({ currentSlide 
   );
 };
 
+export default MusicowPresentation;              <p>뮤직카우와 함께 음악저작권 투자의 새로운 경험을 시작해보세요.<br />
+              세계 최초 음악저작권 투자 플랫폼으로 혁신적인 문화금융 서비스를 제공합니다.</p>
+              
+              <div className={styles.finalStats}>
+                <motion.div className={styles.finalStatItem} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.3 }}>
+                  <div className={styles.finalStatIcon}><FaCrown /></div>
+                  <div className={styles.finalStatText}>
+                    <div className={styles.finalStatNumber}>세계 최초</div>
+                    <div className={styles.finalStatLabel}>음악저작권 투자 플랫폼</div>
+                  </div>
+                </motion.div>
+                
+                <motion.div className={styles.finalStatItem} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.4 }}>
+                  <div className={styles.finalStatIcon}><FaShieldAlt /></div>
+                  <div className={styles.finalStatText}>
+                    <div className={styles.finalStatNumber}>혁신금융</div>
+                    <div className={styles.finalStatLabel}>서비스 지정 (2022.09)</div>
+                  </div>
+                </motion.div>
+                
+                <motion.div className={styles.finalStatItem} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.5 }}>
+                  <div className={styles.finalStatIcon}><FaCoins /></div>
+                  <div className={styles.finalStatText}>
+                    <div className={styles.finalStatNumber}>500원부터</div>
+                    <div className={styles.finalStatLabel}>소액 투자 가능</div>
+                  </div>
+                </motion.div>
+              </div>
+              
+              <div className={styles.ctaSection}>
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }}>
+                  <h3>뮤직카우와 함께 시작하세요</h3>
+                  <p>음악 산업의 미래를 만들어가는 혁신에 참여하세요</p>
+                </motion.div>
+                
+                <motion.div className={styles.actionRow} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.7 }}>
+                  <button className={styles.primaryButton}>
+                    <FaRocket className={styles.buttonIcon} />
+                    지금 시작하기
+                  </button>
+                  <button className={styles.secondaryButton}>
+                    <FaGlobe className={styles.buttonIcon} />
+                    www.musicow.com
+                  </button>
+                </motion.div>
+              </div>
+            </motion.div>
+            
+            <div className={styles.slideNumber}>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.8 }}>
+                <div className={styles.current}>11</div>
+                <div className={styles.total}>/ {totalSlides}</div>
+                <div className={styles.copyright}>© 2025 뮤직카우 | contact@musicow.com</div>
+              </motion.div>
+            </div>
+          </div>
+          
+          <div className={styles.sidebar}>
+            <div className="text-center mb-16">
+              <div className={styles.sidebarTitle}>MUSICOW</div>
+              <div className={styles.sidebarSubtitle}>새로운 시대</div>
+            </div>
+            
+            <div className={styles.iconGrid}>
+              <motion.div className={styles.iconWrapper} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
+                <div className={styles.crownIcon}><FaCrown /></div>
+              </motion.div>
+              <motion.div className={styles.iconWrapper} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+                <div className={styles.shieldIcon}><FaShieldAlt /></div>
+              </motion.div>
+              <motion.div className={styles.iconWrapper} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
+                <div className={styles.coinIcon}><FaCoins /></div>
+              </motion.div>
+              <motion.div className={styles.iconWrapper} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
+                <div className={styles.rocketIcon}><FaRocket /></div>
+              </motion.div>
+            </div>
+            
+            <div className={styles.sidebarFooter}>
+              <div className={styles.tagline}>혁신 • 투자 • 미래</div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
+    return null;
+  };
+  
+  return (
+    <div className={styles.container}>
+      {renderSlide()}
+    </div>
+  );
+};
+
 export default MusicowPresentation;

@@ -763,4 +763,174 @@
   .statsGrid {
     grid-template-columns: 1fr;
   }
+}1rem 0;
+  }
+  
+  .comparisonTable {
+    overflow-x: auto;
+  }
+  
+  .tableHeader,
+  .tableRow {
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .processGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .paradigmGrid {
+    gap: 1.5rem;
+  }
+  
+  .paradigmStep {
+    max-width: 100%;
+  }
+  
+  .stepIcon {
+    width: 4rem;
+    height: 4rem;
+  }
+  
+  .stepIcon svg {
+    font-size: 1.5rem;
+  }
+  
+  .header h2 {
+    font-size: 2.5rem;
+  }
+  
+  .description {
+    font-size: 1.25rem;
+  }
+  
+  .processStep {
+    padding: 1.5rem;
+  }
+  
+  .futureCard,
+  .valueCard,
+  .successCard {
+    padding: 2rem;
+  }
+  
+  .thankYouSlide h2 {
+    font-size: 3rem;
+  }
+  
+  .ctaSection h3 {
+    font-size: 1.75rem;
+  }
+  
+  .actionRow {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mainContent {
+    padding: 1.5rem;
+  }
+  
+  .header h2 {
+    font-size: 2rem;
+  }
+  
+  .description {
+    font-size: 1.125rem;
+  }
+  
+  .companyLayout,
+  .riskLayout {
+    gap: 1.5rem;
+  }
+  
+  .infoItem,
+  .achievementItem,
+  .riskItem,
+  .responseItem {
+    padding: 1rem;
+  }
+  
+  .processStep,
+  .futureCard,
+  .valueCard,
+  .successCard {
+    padding: 1.5rem;
+  }
+  
+  .stepNumber {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
+  
+  .futureNumber {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.875rem;
+  }
+  
+  .stepIcon,
+  .futureIcon,
+  .valueIcon {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  
+  .stepIcon svg,
+  .futureIcon svg,
+  .valueIcon svg {
+    font-size: 1.25rem;
+  }
+  
+  .tableHeader,
+  .tableRow {
+    min-width: 500px;
+  }
+  
+  .headerCell,
+  .rowLabel,
+  .cellContent {
+    padding: 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .thankYouSlide h2 {
+    font-size: 2.5rem;
+  }
+  
+  .thankYouSlide .topText {
+    font-size: 1.25rem;
+  }
+  
+  .finalStatItem {
+    padding: 1.5rem;
+  }
+  
+  .finalStatIcon {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .finalStatIcon svg {
+    font-size: 1.25rem;
+  }
+  
+  .finalStatNumber {
+    font-size: 1.25rem;
+  }
+  
+  .finalStatLabel {
+    font-size: 0.875rem;
+  }
 }
