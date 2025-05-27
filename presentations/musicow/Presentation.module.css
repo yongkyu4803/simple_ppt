@@ -25,7 +25,7 @@
 
 /* 메인 콘텐츠 영역 (왼쪽 80%) */
 .mainContent {
-  width: 80%;
+  width: 90%;
   height: 100%;
   padding: 3rem;
   display: flex;
