@@ -386,7 +386,7 @@
 
 .serviceSlide .headerLine {
   height: 0.5rem;
-  width: 20rem;
+  width: 60%;
   background: linear-gradient(135deg, #eb4657 0%, #d63447 100%);
   border-radius: 0.25rem;
 }
