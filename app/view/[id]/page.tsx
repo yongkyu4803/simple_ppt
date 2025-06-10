@@ -5,6 +5,18 @@ import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaHome, FaArrowLeft, FaArrowRight, FaExpand, FaCompress, FaFilePdf } from 'react-icons/fa';
+
+// 프레젠테이션 컴포넌트 타입 정의
+interface PresentationProps {
+  currentSlide: number;
+}
+
+// 각 프레젠테이션 컴포넌트의 타입
+interface PresentationComponentType {
+  totalSlides: number;
+  default: React.ComponentType<PresentationProps>;
+}
+
 import DemoPresentation from '@/presentations/demo/Presentation';
 import DigitalTransformation from '@/presentations/digital-transformation/Presentation';
 import ModernPresentation from '@/presentations/modern/Presentation';
@@ -32,7 +44,7 @@ export default function PresentationView() {
   });
   
   // 프레젠테이션 컴포넌트 매핑 (수정됨)
-  const presentationMap: { [key: string]: React.ComponentType<{ currentSlide: number }> } = {
+  const presentationMap: { [key: string]: React.ComponentType<PresentationProps> } = {
     'demo': DemoPresentation,
     'digital-transformation': DigitalTransformation,
     'modern': ModernPresentation,
@@ -76,10 +88,13 @@ export default function PresentationView() {
   
   // 다음 슬라이드로 이동
   const goToNextSlide = () => {
-    // 각 프레젠테이션의 슬라이드 수는 하드코딩하거나 props로 받을 수 있습니다
-    const maxSlides = 5; // 기본값으로 5로 설정
-    if (currentSlide < maxSlides - 1) {
-      setCurrentSlide(prev => prev + 1);
+    if (PresentationComponent) {
+    // 각 프레젠테이션의 슬라이드 수를 하드코딩하여 설정
+    const maxSlides = 3; // 뮤직카우 모바일 프레젠테이션의 슬라이드 수
+    console.log('Total slides:', maxSlides); // 디버그용 로그
+      if (currentSlide < maxSlides - 1) {
+        setCurrentSlide(prev => prev + 1);
+      }
     }
   };
   

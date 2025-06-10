@@ -153,7 +153,7 @@
 
 .headerLine {
   height: 2px;
-  width: 50px;
+  width: 50%;
   background: #eb4657;
   margin: 0 auto;
 }
@@ -196,6 +196,31 @@
   list-style: none;
   padding: 0;
   margin-top: 0.75rem;
+}
+
+.serviceCardBody li {
+  margin-bottom: 0.5rem;
+}
+
+.eventImage {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.eventImg {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.625rem;
+  box-shadow: 0 5px 15px rgba(235, 70, 87, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.eventImg:hover {
+  transform: scale(1.02);
+}
+
+.eventImage a {
+  display: inline-block;
 }
 
 .serviceCardBody li {
