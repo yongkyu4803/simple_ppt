@@ -12,6 +12,7 @@ import ProjectProposal from '@/presentations/project-proposal/Presentation';
 import BasicExample from '@/presentations/basic-example/Presentation';
 import TemplateGenerator from '@/presentations/template-generator/Presentation';
 import MusicowPresentation from '@/presentations/musicow/Presentation';
+import MusicowMobilePresentation from '@/presentations/musicow_mobile/Presentation';
 
 // PDF 내보내기 라이브러리 (수정된 import)
 import { usePDF } from 'react-to-pdf';
@@ -38,7 +39,8 @@ export default function PresentationView() {
     'project-proposal': ProjectProposal,
     'basic-example': BasicExample,
     'template-generator': TemplateGenerator,
-    'musicow': MusicowPresentation
+    'musicow': MusicowPresentation,
+    'musicow_mobile': MusicowMobilePresentation
   };
   
   // 현재 프레젠테이션 컴포넌트 가져오기

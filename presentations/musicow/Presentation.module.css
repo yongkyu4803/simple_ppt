@@ -208,8 +208,8 @@
 
 /* 사이드바 스타일 */
 .sidebarTitle {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 600;
   color: white;
   margin-bottom: 0.5rem;
   text-align: center;
@@ -352,12 +352,12 @@
   }
   
   .finalStatItem {
-    padding: 1.5rem;
+    padding: 1rem;
   }
   
   .finalStatIcon {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3rem;
+    height: 3rem;
   }
   
   .finalStatIcon svg {
@@ -386,10 +386,10 @@
 
 .serviceSlide .headerLine {
   height: 0.5rem;
-  width: 60%;
+  width: 70%;
   background: linear-gradient(135deg, #eb4657 0%, #d63447 100%);
   border-radius: 0.25rem;
-  margin-top: 10rem;
+  margin-top: 2rem;
 }
 
 .serviceSlide .description {
@@ -470,9 +470,10 @@
 
 .featureSlide .headerLine {
   height: 0.5rem;
-  width: 6rem;
+  width: 70%;
   background: linear-gradient(135deg, #eb4657 0%, #d63447 100%);
   border-radius: 0.25rem;
+  margin-top: 2rem;
 }
 
 .featureSlide .description {
@@ -585,9 +586,10 @@
 
 .newsSlide .headerLine {
   height: 0.5rem;
-  width: 6rem;
+  width: 70%;
   background: linear-gradient(135deg, #eb4657 0%, #d63447 100%);
   border-radius: 0.25rem;
+  margin-top: 2rem;
 }
 
 .newsSlide .description {
@@ -694,10 +696,11 @@
 
 .finalSlide .headerLine {
   height: 0.5rem;
-  width: 8rem;
+  width: 70%;
   background: linear-gradient(135deg, #eb4657 0%, #d63447 100%);
   margin: 0 auto;
   border-radius: 0.25rem;
+  margin-top: 2rem;
 }
 
 .finalContent {
@@ -721,7 +724,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 .finalStatItem {
@@ -745,8 +748,8 @@
 
 .finalStatIcon {
   background: linear-gradient(135deg, #eb4657 0%, #d63447 100%);
-  width: 5rem;
-  height: 5rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -757,7 +760,7 @@
 
 .finalStatIcon svg {
   color: white;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .finalStatText {
@@ -767,7 +770,7 @@
 }
 
 .finalStatNumber {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #eb4657;
   margin-bottom: 0.75rem;
@@ -781,8 +784,7 @@
 }
 
 .ctaSection {
-  margin-top: auto;
-  padding-top: 2rem;
+  padding-top: 1rem;
 }
 
 .ctaSection h3 {
@@ -824,7 +826,7 @@
 }
 
 .thankYouSlide h2 {
-  font-size: 3.75rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #1f2937;
   margin-bottom: 2rem;
@@ -832,17 +834,18 @@
 
 .thankYouSlide .headerLine {
   height: 0.5rem;
-  width: 8rem;
+  width: 70%;
   background: linear-gradient(135deg, #eb4657 0%, #d63447 100%);
   margin: 0 auto;
   border-radius: 0.25rem;
+  margin-top: 2rem;
 }
 
 .thankYouContent {
-  max-width: 64rem;
+  max-width: 50rem;
   margin: 0 auto;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
 }
 
 .thankYouContent p {

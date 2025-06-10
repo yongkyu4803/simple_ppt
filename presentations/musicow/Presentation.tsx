@@ -455,12 +455,7 @@ const MusicowPresentation: React.FC<MusicowPresentationProps> = ({ currentSlide 
                 </motion.div>
               </div>
               
-              <div className={styles.ctaSection}>
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }}>
-                  <h3>뮤직카우와 함께 시작하세요</h3>
-                  <p>음악 산업의 미래를 만들어가는 혁신에 참여하세요</p>
-                </motion.div>
-                
+              <div className={styles.ctaSection}>               
                 <motion.div className={styles.actionRow} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.7 }}>
                   <button className={styles.primaryButton}>
                     <FaRocket className={styles.buttonIcon} />
@@ -486,7 +481,7 @@ const MusicowPresentation: React.FC<MusicowPresentationProps> = ({ currentSlide 
           <div className={styles.sidebar}>
             <div className="text-center mb-16">
               <div className={styles.sidebarTitle}>MUSICOW</div>
-              <div className={styles.sidebarSubtitle}>새로운 시대</div>
+              <div className={styles.sidebarSubtitle}></div>
             </div>
             
             <div className={styles.iconGrid}>
@@ -505,7 +500,7 @@ const MusicowPresentation: React.FC<MusicowPresentationProps> = ({ currentSlide 
             </div>
             
             <div className={styles.sidebarFooter}>
-              <div className={styles.tagline}>혁신 • 투명 • 수익</div>
+              <div className={styles.tagline}>음악이 매력적인<br /> 자산이 된다.</div>
             </div>
           </div>
         </div>

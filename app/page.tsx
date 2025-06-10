@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FaRegFileAlt, FaRocket, FaPen, FaLayerGroup, FaProjectDiagram, FaBook, FaClone, FaCode } from 'react-icons/fa';
+import { FaRegFileAlt, FaRocket, FaPen, FaLayerGroup, FaProjectDiagram, FaBook, FaClone, FaCode, FaMobile } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 
 interface PresentationMeta {
@@ -24,7 +24,8 @@ const iconComponents = {
   FaProjectDiagram,
   FaBook,
   FaClone,
-  FaCode
+  FaCode,
+  FaMobile
 };
 
 export default function Home() {
@@ -70,7 +71,8 @@ export default function Home() {
           { id: 'demo', title: '데모 프레젠테이션', description: '새롭게 디자인된 프레젠테이션 템플릿', icon: FaRocket as any },
           { id: 'digital-transformation', title: '디지털 혁신 전략', description: '디지털 트랜스포메이션 프레젠테이션', icon: FaLayerGroup as any },
           { id: 'modern', title: '모던 프레젠테이션', description: '현대적인 디자인의 프레젠테이션', icon: FaRegFileAlt as any },
-          { id: 'musicow', title: 'Musicow 프레젠테이션', description: '음악 관련 서비스 소개', icon: FaPen as any },
+          { id: 'musicow', title: 'Musicow 프레젠테이션', description: '음악 관련 서비스 소개 (데스크톱)', icon: FaPen as any },
+          { id: 'musicow_mobile', title: 'Musicow 프레젠테이션 (모바일)', description: '음악 관련 서비스 소개 (모바일 최적화)', icon: FaMobile as any },
           { id: 'project-proposal', title: '프로젝트 제안서', description: '프로젝트 제안 템플릿', icon: FaProjectDiagram as any },
         ];
         
