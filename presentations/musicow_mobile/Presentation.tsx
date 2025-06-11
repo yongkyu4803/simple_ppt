@@ -18,21 +18,8 @@ const MusicowPresentation = ({ currentSlide }: MusicowPresentationProps) => {
       return (
         <div className={styles.slide}>
           <div className={`${styles.mainContent} ${styles.titleSlide}`}>
-            <div className={styles.logoAndTitle}>
-              <img src="https://opening-attachments.greetinghr.com/20230801/99b3431a-e707-4c95-803d-d52618156527/.png" alt="뮤직카우 로고" className={styles.logo} />
-              <div className={styles.description}>음악이 매력적인 자산이 된다</div>
-            </div>
-            
             <div className={styles.content}>
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
-                <div className={styles.logoAndTitle}>
-                  <h1>뮤직카우 <span>MUSICOW</span></h1>
-                  <p className={styles.subtitle}>
-                    세계 최초 음악저작권 투자 플랫폼<br />
-                    음악이 매력적인 자산이 되는 새로운 경험을 제공합니다
-                  </p>
-                </div>
-                
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>      
                 <div className={styles.actionButtons}>
                   <button 
                     className={styles.primaryButton} 
@@ -54,6 +41,10 @@ const MusicowPresentation = ({ currentSlide }: MusicowPresentationProps) => {
       return (
         <div className={styles.slide}>
           <div className={`${styles.mainContent} ${styles.serviceSlide}`}>
+          <div className={styles.logoAndTitle}>
+              <img src="https://opening-attachments.greetinghr.com/20230801/99b3431a-e707-4c95-803d-d52618156527/.png" alt="뮤직카우 로고" className={styles.logo} />
+              <div className={styles.description}>음악이 매력적인 자산이 된다</div>
+            </div>
             <motion.div className={styles.header} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
               <h2>뮤직카우 서비스</h2>
               <div className={styles.headerLine}></div>
@@ -61,16 +52,17 @@ const MusicowPresentation = ({ currentSlide }: MusicowPresentationProps) => {
             <div className={styles.serviceGrid}>
               {/* 첫 번째 서비스 카드 - 음악수익증권 */}
               <motion.div className={styles.serviceCard} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
+                <div className={styles.serviceBadge}>HOT</div>
                 <div className={styles.serviceCardHeader}>
                   <div className={`${styles.serviceIcon} ${styles.musicIcon}`}><FaMusic /></div>
-                  <h3>음악수익증권</h3>
+                  <h3>커피 한잔 값으로 내가 좋아 하는 음악에 투자하세요</h3>
                 </div>
                 <div className={styles.serviceCardBody}>
                   <p>인기 음악의 저작권을 500원~5,000원으로 쪼개어 누구나 쉽게 투자할 수 있습니다.</p>
                   <ul>
-                    <li>• K-POP, 발라드, 힙합 등 <b>다양한 장르의 저작권</b>에 투자</li>
-                    <li>• <b>실시간 거래</b> 시스템으로 언제든 매매 가능</li>
-                    <li>• <b>소액 투자</b>로 진입 장벽을 낮춰 누구나 쉽게 시작</li>
+                    <li>K-POP, 발라드, 힙합 등 <b>다양한 장르의 저작권</b>에 투자</li>
+                    <li><b>실시간 거래</b> 시스템으로 언제든 매매 가능</li>
+                    <li><b>소액 투자</b>로 진입 장벽을 낮춰 누구나 쉽게 시작</li>
                   </ul>
                 </div>
               </motion.div>
@@ -79,14 +71,14 @@ const MusicowPresentation = ({ currentSlide }: MusicowPresentationProps) => {
               <motion.div className={styles.serviceCard} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
                 <div className={styles.serviceCardHeader}>
                   <div className={`${styles.serviceIcon} ${styles.coinIcon}`}><FaCoins /></div>
-                  <h3>월간 수익 분배</h3>
+                  <h3>매달 "따박따박" 내 지갑에 들어오는 저작권료</h3>
                 </div>
                 <div className={styles.serviceCardBody}>
                   <p>보유한 증권에 비례하여 매월 음악 저작권료를 정기적으로 받을 수 있습니다.</p>
                   <ul>
-                    <li>• 매월 1회 <b>정기적인 저작권료 수익</b> 분배</li>
-                    <li>• 투명한 <b>수익 공개 및 정산 내역</b> 제공</li>
-                    <li>• 자동 정산 시스템으로 <b>안정적인 수익</b> 관리</li>
+                    <li>매월 1회 <b>정기적인 저작권료 수익</b> 분배</li>
+                    <li>투명한 <b>수익 공개 및 정산 내역</b> 제공</li>
+                    <li>자동 정산 시스템으로 <b>안정적인 수익</b> 관리</li>
                   </ul>
                 </div>
               </motion.div>
@@ -115,6 +107,10 @@ const MusicowPresentation = ({ currentSlide }: MusicowPresentationProps) => {
       return (
         <div className={styles.slide}>
           <div className={`${styles.mainContent} ${styles.serviceSlide}`}>
+            <div className={`${styles.logoAndTitle} ${styles.titleSlide}`}>
+              <img src="https://opening-attachments.greetinghr.com/20230801/99b3431a-e707-4c95-803d-d52618156527/.png" alt="뮤직카우 로고" className={styles.logo} />
+              <div className={styles.description}>음악이 매력적인 자산이 된다</div>
+            </div>
             <motion.div className={styles.header} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
               <h2>뮤직카우 EVENT</h2>
               <div className={styles.headerLine}></div>

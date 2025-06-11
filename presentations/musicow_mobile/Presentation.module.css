@@ -163,23 +163,39 @@
 }
 
 .serviceCard {
+  position: relative;
   background: #fff;
+  background: linear-gradient(135deg, #fff8f1 60%, #ffe3e3 100%);
   border-radius: 0.875rem;
-  padding: 1.25rem;
+  padding: 1.5rem 1.5rem 1.5rem 1.5rem;
   box-shadow: 0 5px 15px rgba(235, 70, 87, 0.1);
   margin: 1rem 0;
+}
+
+.serviceCard::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background: none; /* 추후 실제 svg 파일 삽입 가능 */
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  pointer-events: none;
 }
 
 .serviceCardHeader {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 1.125rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .serviceIcon {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -190,6 +206,7 @@
 
 .serviceCardBody {
   font-size: 1rem;
+  line-height: 1.5;
 }
 
 .serviceCardBody ul {
@@ -199,9 +216,24 @@
 }
 
 .serviceCardBody li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
+.serviceBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #eb4657;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* event image styles */
 .eventImage {
   margin-top: 1rem;
   text-align: center;
@@ -213,6 +245,8 @@
   border-radius: 0.625rem;
   box-shadow: 0 5px 15px rgba(235, 70, 87, 0.1);
   transition: transform 0.3s ease;
+  max-height: 550px;
+  object-fit: contain;
 }
 
 .eventImg:hover {
@@ -221,10 +255,6 @@
 
 .eventImage a {
   display: inline-block;
-}
-
-.serviceCardBody li {
-  margin-bottom: 0.75rem;
 }
 
 /* 모바일 최적화 */
@@ -244,4 +274,52 @@
   .serviceCard {
     padding: 1.5rem;
   }
+}
+
+/* 카드 제목 */
+.serviceCardHeader h3 {
+  color: #eb4657;
+  font-size: 1.17rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+/* 카드 본문 일반 텍스트 */
+.serviceCardBody p {
+  color: #555;
+  margin-bottom: 0.7rem;
+}
+
+/* 카드 본문 리스트 */
+.serviceCardBody li {
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0.45rem;
+}
+
+/* 리스트 내 굵은 글씨(강조) */
+.serviceCardBody li b {
+  color: #d63447;
+  font-weight: 700;
+}
+
+/* 카드별 아이콘 색상도 약간 바꿀 수 있음 */
+.musicIcon { background: linear-gradient(135deg, #eb4657 50%, #fa709a 100%); color: #fff; }
+.coinIcon  { background: linear-gradient(135deg, #fcb900 50%, #ffe270 100%); color: #fff; }
+.shieldIcon { background: linear-gradient(135deg, #546e7a 50%, #99b2c6 100%); color: #fff; }
+
+/* 리스트 점 아이콘을 화려하게 */
+.serviceCardBody ul {
+  list-style: none;
+  padding: 0;
+}
+.serviceCardBody li::before {
+  content: "•";
+  color: #fa709a;
+  font-weight: bold;
+  margin-right: 0.45em;
+  font-size: 1.2em;
+  vertical-align: middle;
 }
